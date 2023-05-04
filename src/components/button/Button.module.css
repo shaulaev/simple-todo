@@ -1,0 +1,22 @@
+.button {
+    display: inline-block;
+
+    height: 100%;
+
+    cursor: pointer;
+    padding: 10px;
+
+    border: 0;
+    border-radius: 8px;
+
+    background-color: #009dff;
+    color: #ffffff;
+}
+
+.transparent {
+    color: #009dff;
+
+    border: 1px solid #009dff;
+
+    background-color: transparent;
+}

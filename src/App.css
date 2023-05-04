@@ -1,0 +1,26 @@
+body {
+  background-color: #cce4ff;
+  font-family: sans-serif;
+}
+
+.main {
+  width: 65%;
+  margin: auto;
+}
+
+.inputWrapper {
+  margin-top: 20px;
+
+  display: flex;
+  align-items: center;
+}
+
+.inputWrapper > *:first-child {
+  margin-right: 5px;
+}
+
+@media screen and (max-width: 800px) {
+  .main {
+    width: 96%;
+  }
+}
