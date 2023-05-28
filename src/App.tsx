@@ -2,40 +2,53 @@ import './App.css'
 import ToDo from "./components/todo/ToDo";
 import Input from "./components/input/Input";
 import Button from "./components/button/Button";
-import { useState } from "react";
-import {todo} from "./types/types";
+import { useState, useEffect } from "react";
+import { todo } from "./types/types";
+import { useAppDispatch, useAppSelector } from './store/store';
+import { getTodo, addTodo } from './api/todoApi';
 
 function App() {
 
-    const [todos, setTodos] = useState<todo[]>([
-        {id: 1, text: "Hello World", checkbox: false},
-        {id: 3, text: "Hello World", checkbox: false},
-        {id: 4, text: "Hello World", checkbox: false},
-        {id: 5, text: "Hello World", checkbox: false},
-        {id: 6, text: "Hello World", checkbox: false}
-    ]),
-        [input, setInput] = useState<string>("")
+    const todo = useAppSelector((todo) => todo.todo)
 
-    const deleteTodo = (id) => {
-        setTodos(todos.filter(item => item.id !== id))
+    const dispatch = useAppDispatch()
+
+    useEffect(() => {
+        dispatch(getTodo())
+    }, [dispatch])
+
+    const [input, setInput] = useState<string>("");
+    const [sort, setSort] = useState<string>("")
+
+    // const deleteTodo = (id: number) => {
+    //     setTodos(todos.filter(item => item.id !== id))
+    // }
+
+    const addTodoFunc = () => {
+        dispatch(addTodo(input))
+        setInput("")
     }
 
-    const addTodo = () => {
-        setTodos([...todos, {id: Math.round(Math.random()), text: input, checkbox: false}])
-    }
+    console.log(sort)
+
 
   return (
     <>
       <div className="main">
           <div className="inputWrapper">
               <Input state={input} setState={setInput}/>
-              <Button click={addTodo} text={"Add"}/>
+              <Button onClick={addTodoFunc} text={"Add"}/>
           </div>
-          {todos.map((todo) => {
+          <select value={sort} onChange={(e) => setSort(e.target.value)} name="" id="">
+            <option value="0">Все</option>
+            <option value="0">Завершенные</option>
+            <option value="0">Незавершенные</option>
+          </select>
+          {todo.data.length > 0 ? todo.data.map((todo) => {
               return (
-                  <ToDo key={todo.id} deleteTodo={deleteTodo} todo={todo}/>
+                  <ToDo key={todo.id}  todo={todo}/>
               )
-          })}
+          }): <div className="lds-dual-ring"></div>}
       </div>
     </>
   )

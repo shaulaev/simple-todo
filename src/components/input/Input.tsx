@@ -7,9 +7,6 @@ type Input = {
 }
 
 const Input: React.FC<Input> = ({state, setState}) => {
-
-    console.log(state)
-
     return (
         <input className={cl.input} onChange={(e) => setState(e.target.value)} value={state} type="text"/>
     )
