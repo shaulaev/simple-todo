@@ -4,9 +4,11 @@ import { addTodo, completeTodo, deleteTodo, getTodo } from "../api/todoApi"
 
 interface state {
     pending: boolean,
-    data: Array<any>,
+    data: Array<unknown>,
     error: null | SerializedError
 }
+
+//@ts-ignore
 
 const todo = createSlice({
     name: 'todo',
@@ -50,8 +52,11 @@ const todo = createSlice({
             state.pending = true;
             state.error = null;
         })
-        builder.addCase(completeTodo.fulfilled, (state) => {
+        builder.addCase(completeTodo.fulfilled, (state, action) => {
             state.pending = false;
+            let t = state.data.find((todo) => todo.id === action.payload.id);
+            t.checkbox = !action.payload.checkbox
+            state.data[state.data.indexOf(t)] = t
             state.error = null;
         })
         builder.addCase(completeTodo.rejected, (state, action) => {

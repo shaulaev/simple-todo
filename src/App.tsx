@@ -3,9 +3,9 @@ import ToDo from "./components/todo/ToDo";
 import Input from "./components/input/Input";
 import Button from "./components/button/Button";
 import { useState, useEffect } from "react";
-import { todo } from "./types/types";
 import { useAppDispatch, useAppSelector } from './store/store';
 import { getTodo, addTodo } from './api/todoApi';
+import {todo} from "./types/types";
 
 function App() {
 
@@ -18,19 +18,22 @@ function App() {
     }, [dispatch])
 
     const [input, setInput] = useState<string>("");
-    const [sort, setSort] = useState<string>("")
-
-    // const deleteTodo = (id: number) => {
-    //     setTodos(todos.filter(item => item.id !== id))
-    // }
+    const [sort, setSort] = useState<string>("0")
 
     const addTodoFunc = () => {
         dispatch(addTodo(input))
         setInput("")
     }
 
-    console.log(sort)
-
+    const filteredArr = () => {
+        if(sort === "0") {
+            return todo.data
+        } else if (sort === "1") {
+            return  todo.data.filter(todo => todo.checkbox === true)
+        } else if (sort === "2") {
+            return  todo.data.filter(todo => todo.checkbox !== true)
+        }
+    }
 
   return (
     <>
@@ -41,14 +44,14 @@ function App() {
           </div>
           <select value={sort} onChange={(e) => setSort(e.target.value)} name="" id="">
             <option value="0">Все</option>
-            <option value="0">Завершенные</option>
-            <option value="0">Незавершенные</option>
+            <option value="1">Завершенные</option>
+            <option value="2">Незавершенные</option>
           </select>
-          {todo.data.length > 0 ? todo.data.map((todo) => {
+          {todo.data.length > 0 ? filteredArr().map((todo: todo) => {
               return (
                   <ToDo key={todo.id}  todo={todo}/>
               )
-          }): <div className="lds-dual-ring"></div>}
+          }): <div className="lds-dual-ring" />}
       </div>
     </>
   )
