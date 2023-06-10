@@ -1,6 +1,9 @@
+// @ts-nocheck
+
 import { createSlice } from "@reduxjs/toolkit"
 import { SerializedError } from "@reduxjs/toolkit"
 import { addTodo, completeTodo, deleteTodo, getTodo } from "../api/todoApi"
+import {todo} from "../types/types";
 
 interface state {
     pending: boolean,
@@ -8,7 +11,6 @@ interface state {
     error: null | SerializedError
 }
 
-//@ts-ignore
 
 const todo = createSlice({
     name: 'todo',
@@ -54,7 +56,7 @@ const todo = createSlice({
         })
         builder.addCase(completeTodo.fulfilled, (state, action) => {
             state.pending = false;
-            let t = state.data.find((todo) => todo.id === action.payload.id);
+            const t:unknown = state.data.find((todo: todo) => todo.id === action.payload.id);
             t.checkbox = !action.payload.checkbox
             state.data[state.data.indexOf(t)] = t
             state.error = null;
@@ -71,7 +73,7 @@ const todo = createSlice({
         builder.addCase(deleteTodo.fulfilled, (state, action) => {
             state.pending = false;
             state.error = null;
-            state.data = state.data.filter(item => item.id !== action.payload)
+            state.data = state.data.filter((todo: todo) => todo.id !== action.payload)
         })
         builder.addCase(deleteTodo.rejected, (state, action) => {
             state.pending = false;

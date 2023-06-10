@@ -25,7 +25,7 @@ export const addTodo = createAsyncThunk("todo/addTodo", async (text: string) => 
     return d
 })
 
-export const completeTodo = createAsyncThunk("todo/completeTodo", async (todo) => {
+export const completeTodo = createAsyncThunk("todo/completeTodo", async (todo: todo) => {
     const {id, checkbox} = todo;
 
     const data = await fetch(http + `todo/${id}`, {
@@ -42,7 +42,7 @@ export const completeTodo = createAsyncThunk("todo/completeTodo", async (todo) =
     return todo
 })
 
-export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id) => {
+export const deleteTodo = createAsyncThunk("todo/deleteTodo", async (id: number) => {
     await fetch(http + `todo/${id}`, {
         method: "DELETE",
         headers: {

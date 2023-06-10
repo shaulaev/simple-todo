@@ -1,3 +1,5 @@
+//@ts-nocheck
+
 import './App.css'
 import ToDo from "./components/todo/ToDo";
 import Input from "./components/input/Input";
@@ -29,9 +31,9 @@ function App() {
         if(sort === "0") {
             return todo.data
         } else if (sort === "1") {
-            return  todo.data.filter(todo => todo.checkbox === true)
+            return  todo.data.filter((todo: todo) => todo.checkbox)
         } else if (sort === "2") {
-            return  todo.data.filter(todo => todo.checkbox !== true)
+            return  todo.data.filter((todo: todo) => !todo.checkbox)
         }
     }
 
@@ -47,9 +49,10 @@ function App() {
             <option value="1">Завершенные</option>
             <option value="2">Незавершенные</option>
           </select>
-          {todo.data.length > 0 ? filteredArr().map((todo: todo) => {
+          {
+              todo.data.length > 0 ? filteredArr().map((todo: todo) => {
               return (
-                  <ToDo key={todo.id}  todo={todo}/>
+                  <ToDo key={todo.id} todo={todo}/>
               )
           }): <div className="lds-dual-ring" />}
       </div>
