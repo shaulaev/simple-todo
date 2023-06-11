@@ -23,7 +23,9 @@ function App() {
     const [sort, setSort] = useState<string>("0")
 
     const addTodoFunc = () => {
-        dispatch(addTodo(input))
+        if(input) {
+            dispatch(addTodo(input))
+        }
         setInput("")
     }
 
@@ -42,7 +44,7 @@ function App() {
       <div className="main">
           <div className="inputWrapper">
               <Input state={input} setState={setInput}/>
-              <Button onClick={addTodoFunc} text={"Add"}/>
+              <Button onClick={addTodoFunc} text={"+"} round={true}/>
           </div>
           <select value={sort} onChange={(e) => setSort(e.target.value)} name="" id="">
             <option value="0">Все</option>

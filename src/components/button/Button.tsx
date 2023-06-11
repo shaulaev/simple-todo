@@ -4,13 +4,14 @@ import cl from "./Button.module.css"
 type Button = {
     text: string,
     transparent?: boolean,
+    round?: boolean,
     onClick: Function
 }
 
-const Button: React.FC<Button> = ({text, transparent, onClick}) => {
+const Button: React.FC<Button> = ({text, transparent, round,onClick}) => {
 
     return (
-        <button onClick={() => onClick()} className={transparent ? cl.button + " " + cl.transparent : cl.button}>{text}</button>
+        <button onClick={() => onClick()} className={cl.button + " " + cl.round}>{text}</button>
     )
 }
 
