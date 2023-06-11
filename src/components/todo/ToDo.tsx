@@ -26,7 +26,7 @@ const ToDo: React.FC<Todo> = ({todo}) => {
     }
 
     return (
-        <div className={cl.todo}>
+        <div className={check ? cl.todo + " " + cl.checked :  cl.todo}>
             <input type="checkbox" onChange={complete} checked={check !== undefined ? check : false}/>
             <p>{todo.text}</p>
             <span className={check ? cl.lineOn : cl.lineOff} />
