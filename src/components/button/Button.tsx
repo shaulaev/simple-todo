@@ -8,7 +8,7 @@ type Button = {
     onClick: Function
 }
 
-const Button: React.FC<Button> = ({text, transparent, round,onClick}) => {
+const Button: React.FC<Button> = ({text,onClick}) => {
 
     return (
         <button onClick={() => onClick()} className={cl.button + " " + cl.round}>{text}</button>
